@@ -3,7 +3,6 @@ let currentMode = null;
 
 function selectMode(mode) {
     currentMode = mode;
-    sessionStorage.setItem('selectedMode', mode);
     const sel = document.getElementById('mode-selector');
     sel.style.opacity = '0';
     sel.style.transition = 'opacity 0.35s ease';
@@ -31,7 +30,6 @@ function backToModeSelector() {
         document.getElementById('anime-mode').style.display = 'none';
     }
     currentMode = null;
-    sessionStorage.removeItem('selectedMode');
     const sel = document.getElementById('mode-selector');
     sel.style.display = 'flex';
     sel.style.opacity = '0';
@@ -44,11 +42,6 @@ window.addEventListener('load', () => {
 
     const showModeSelector = () => {
         document.getElementById('mode-selector').style.display = 'flex';
-        // Restore last mode if exists
-        const savedMode = sessionStorage.getItem('selectedMode');
-        if (savedMode) {
-            selectMode(savedMode);
-        }
     };
 
     if (!sessionStorage.getItem('splashShown')) {
@@ -432,7 +425,7 @@ function shareLagu() {
     if(navigator.share && currentTrack) {
         navigator.share({
             title: currentTrack.title,
-            text: `Dengarkan ${currentTrack.title} oleh ${currentTrack.artist} di Soundify!`,
+            text: `Dengarkan ${currentTrack.title} oleh ${currentTrack.artist} di NexStream!`,
             url: window.location.href
         }).catch(err => console.log('Share gagal', err));
     } else {
